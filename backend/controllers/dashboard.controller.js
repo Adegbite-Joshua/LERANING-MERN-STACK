@@ -60,4 +60,9 @@ const getSlashUser = (req,res)=>{
     )
 }
 
-module.exports = {startServer, getUserLandingPage, getSlashUser}
+const postStudentInfo =(req, res)=>{
+    console.log(req.body);
+}
+
+
+module.exports = {startServer, getUserLandingPage, getSlashUser, postStudentInfo}

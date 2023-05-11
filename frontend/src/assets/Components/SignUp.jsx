@@ -5,7 +5,7 @@ const SignUp = () => {
     const [response, setresponse] = useState([])
     let uri = 'http://localhost:5000/'
     useEffect(() => {
-      axios(uri)
+      axios.get(uri)
       .then((res)=>{
             setresponse([res])
             console.log(res);
@@ -15,26 +15,45 @@ const SignUp = () => {
       })
     }, [])
     
+    const [firstname, setfirstname] = useState('')
+    const [lastname, setlastname] = useState('')
+    const [email, setemail] = useState('')
+    const [password, setpassword] = useState('')
+
+    const submitForm =()=>{
+        // e.preventDefault()
+        let details = {
+            firstname,
+            lastname,
+            email,
+            password
+        }
+        
+        // console.log(details);
+        const endpoint = 'http://localhost:5000/post'
+        axios.post(endpoint, details)
+    }
     return (
         <>
-            <form class="row g-3 w-50 mx-auto">
+            <div class="row g-3 w-50 mx-auto">
+            <div class="col-12">
+                    <label for="firstName" class="form-label">First Name</label>
+                    <input type="text" class="form-control" id="firstname" placeholder="First Name" onChange={(e)=>setfirstname(e.target.value)} />
+                </div>
+                <div class="col-12">
+                    <label for="lastName" class="form-label">Last Name</label>
+                    <input type="text" class="form-control" id="lastName" placeholder="Last Name"  onChange={(e)=>setlastname(e.target.value)}/>
+                </div>
                 <div class="col-md-6">
                     <label for="inputEmail4" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="inputEmail4" />
+                    <input type="email" class="form-control" id="inputEmail4"  onChange={(e)=>setemail(e.target.value)} />
                 </div>
                 <div class="col-md-6">
                     <label for="inputPassword4" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="inputPassword4" />
+                    <input type="password" class="form-control" id="inputPassword4"  onChange={(e)=>setpassword(e.target.value)} />
                 </div>
-                <div class="col-12">
-                    <label for="inputAddress" class="form-label">Address</label>
-                    <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" />
-                </div>
-                <div class="col-12">
-                    <label for="inputAddress2" class="form-label">Address 2</label>
-                    <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor" />
-                </div>
-                <div class="col-md-6">
+                
+                {/* <div class="col-md-6">
                     <label for="inputCity" class="form-label">City</label>
                     <input type="text" class="form-control" id="inputCity" />
                 </div>
@@ -48,7 +67,7 @@ const SignUp = () => {
                 <div class="col-md-2">
                     <label for="inputZip" class="form-label">Zip</label>
                     <input type="text" class="form-control" id="inputZip" />
-                </div>
+                </div> */}
                 <div class="col-12">
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" id="gridCheck" />
@@ -58,9 +77,9 @@ const SignUp = () => {
                     </div>
                 </div>
                 <div class="col-12">
-                    <button type="submit" class="btn btn-primary">Sign in</button>
+                    <button onClick={(e)=>submitForm()} class="btn btn-primary">Sign in</button>
                 </div>
-            </form>
+            </div>
         </>
     )
 }
