@@ -24,7 +24,7 @@ const getUserLandingPage = (req,res)=>{
     )
 }
 
-const getSlashUser = (req,res)=>{
+const getSlashUser = (req , res)=>{
     res.send(
         [
             {
