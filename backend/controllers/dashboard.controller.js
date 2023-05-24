@@ -77,12 +77,12 @@ const postStudentInfo =(req, res)=>{
 const saveFile =(req,res)=>{
     console.log(req.body);
     // let imago = req.body.myImage
-    const resImage = cloudinary.uploader.upload(req.body.myFile, {public_id: "myfirstimage"})
+    const resImage = cloudinary.uploader.upload(req.body.myFile, {public_id: req.body.fileName})
     
     resImage.then((data) => {
         console.log(data);
         console.log(data.secure_url);
-        res.send(data.secure_url)
+        res.send({link:data.secure_url, message: 'saved'})
     }).catch((err) => {
         console.log(err);
     });
