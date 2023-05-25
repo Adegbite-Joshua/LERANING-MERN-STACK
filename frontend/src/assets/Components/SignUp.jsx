@@ -1,7 +1,9 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const SignUp = () => {
+    const navigate = useNavigate()
     const [response, setresponse] = useState([])
     let uri = 'http://localhost:5000/'
     useEffect(() => {
@@ -23,15 +25,25 @@ const SignUp = () => {
     const submitForm =()=>{
         // e.preventDefault()
         let details = {
-            firstname,
-            lastname,
+            firstName: firstname,
+            lastName: lastname,
             email,
             password
         }
-        
         // console.log(details);
         const endpoint = 'http://localhost:5000/post'
         axios.post(endpoint, details)
+        .then((res)=>{
+            console.log(res.data);
+            if (res.status == 200) {
+                navigate('/signin')
+            } else{
+                alert('error')
+            }
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
     }
     return (
         <>

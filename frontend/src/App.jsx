@@ -4,13 +4,21 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import SignUp from './assets/Components/SignUp'
 import UploadFile from './assets/Components/UploadFile'
+import { Route, Routes } from 'react-router-dom'
+import SignIn from './assets/Components/SignIn'
 
 function App() {
 
   return (
     <>
         {/* <SignUp/> */}
-        <UploadFile/>
+        <Routes>
+          <Route path='/' element={<UploadFile/>} />
+          <Route path='/signup' element={<SignUp/>} />
+          <Route path='/signin' element={<SignIn/>} />
+          
+        </Routes>
+        
     </>
   )
 }

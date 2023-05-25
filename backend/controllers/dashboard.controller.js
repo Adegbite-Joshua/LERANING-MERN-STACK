@@ -1,3 +1,5 @@
+const userModel = require('../models/user.model');
+
 const cloudinary = require('cloudinary').v2;
 
 cloudinary.config({
@@ -72,13 +74,19 @@ const getSlashUser = (req , res)=>{
 
 const postStudentInfo =(req, res)=>{
     console.log(req.body);
+    let form = userModel(req.body)
+    form.save()
+    .then(() => res.status(200).json('saved'))
+    .catch((err)=>{
+        console.log(err)
+        res.status(450).json('failed')
+    })
 }
 
 const saveFile =(req,res)=>{
     console.log(req.body);
     // let imago = req.body.myImage
     const resImage = cloudinary.uploader.upload(req.body.myFile, {public_id: req.body.fileName})
-    
     resImage.then((data) => {
         console.log(data);
         console.log(data.secure_url);
