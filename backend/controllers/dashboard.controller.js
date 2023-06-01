@@ -1,17 +1,16 @@
 const userModel = require('../models/user.model');
+const nodemailer = require('nodemailer')
+
 
 const cloudinary = require('cloudinary').v2;
 
 cloudinary.config({
-    // cloud_name: process.env.NAME,
-    // api_key: process.env.APIKEY,
-    // api_secret: process.env.SECRET
-    cloud_name: "dc9o9pwld",
-  api_key: "379799561535484",
-  api_secret: "xl2hO0suwnzdww6zf99nQ-hPeQ4"
+    cloud_name: process.env.NAME,
+    api_key: process.env.APIKEY,
+    api_secret: process.env.SECRET
   });
 const startServer = ()=>{
-    console.log('Server started');
+    console.log('Server started working');
 }
 
 const getUserLandingPage = (req,res)=>{
@@ -96,4 +95,34 @@ const saveFile =(req,res)=>{
     });
 }
 
-module.exports = {startServer, getUserLandingPage, getSlashUser, postStudentInfo, saveFile}
+const getNodeMailer =(req,res)=>{
+    res.send({
+        message: 'successful',
+        status: true
+    })
+
+    let transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: process.env.USEREMAIL,
+            pass: process.env.PASSWORD
+        }
+
+    })
+    let mailOptions = {
+        from: process.env.USEREMAIL,
+        to: ['adegbitejoshua007@gmail.com', 'adeoluamole@gmail.com', 'adeoyeadebukola07@gmail.com'],
+        subject: 'Nodemailer Checker, Do you read over',
+        text: 'Hope this meets you well?. From Joshua'
+    }
+
+    transporter.sendMail(mailOptions)
+    .then((response)=>{
+        console.log(response)
+    })
+    .catch((err) => {
+        console.log(err);
+    });
+}
+
+module.exports = {startServer, getUserLandingPage, getSlashUser, postStudentInfo, saveFile, getNodeMailer}
